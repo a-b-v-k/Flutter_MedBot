@@ -1,4 +1,4 @@
-# mini_project
+# Flutter_MedBot
 
 A new Flutter project.
 
