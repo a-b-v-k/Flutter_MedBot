@@ -10,7 +10,7 @@ class Chats extends StatelessWidget {
   Chats({Key? key, required this.scrollcontroller}) : super(key: key);
 
   final ScrollController scrollcontroller;
-  bool isUser(Message mess) {
+  bool isUser(ChatMessage mess) {
     return mess.senderId == 1 ? true : false;
   }
 
@@ -33,10 +33,19 @@ class Chats extends StatelessWidget {
 class Mychatmessage extends StatelessWidget {
   const Mychatmessage({Key? key, required this.message}) : super(key: key);
 
-  final Message message;
+  final ChatMessage message;
+
+  String capitalize(String string) {
+    if (string.isEmpty) {
+      return string;
+    }
+
+    return string[0].toUpperCase() + string.substring(1);
+  }
 
   @override
   Widget build(BuildContext context) {
+    String captialmessage = capitalize(message.text!);
     Color primary = Theme.of(context).colorScheme.primary;
     Color secondary = Theme.of(context).colorScheme.secondary;
     bool isbot = message.senderId == 0;
@@ -56,7 +65,7 @@ class Mychatmessage extends StatelessWidget {
                 alignment: isbot ? Alignment.centerLeft : Alignment.centerRight,
                 child: Container(
                   child: Text(
-                    message.text,
+                    captialmessage,
                     style: TextStyle(color: isbot ? primary : secondary),
                   ),
                   decoration: BoxDecoration(

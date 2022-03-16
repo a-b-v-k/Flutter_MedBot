@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mini_project/PredictApi.dart';
+import 'package:mini_project/PredictScreen.dart';
 import 'package:mini_project/chatbuilder.dart';
 import 'package:mini_project/components/MyModal.dart';
 import 'package:mini_project/components/chats.dart';
@@ -34,6 +36,8 @@ class MyHomePage extends StatelessWidget {
     final miccontroller = Provider.of<Miccontroller>(context);
     final chatcontroller = Provider.of<ChatMessages>(context);
 
+    chatcontroller.init();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -44,18 +48,32 @@ class MyHomePage extends StatelessWidget {
           onTap: () {
             showDialog(context: context, builder: (context) => ExitDialog());
           },
-          child: Hero(
-            tag: "exit",
-            child: Icon(
-              Icons.exit_to_app_rounded,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+          child: Icon(
+            Icons.exit_to_app_rounded,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
         title: Text(
           title,
           style: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
+        actions: [
+          GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => PredictScreen()));
+              },
+              child: Container(
+                margin: EdgeInsets.all(5),
+                padding: EdgeInsets.symmetric(vertical: 3, horizontal: 7),
+                decoration: BoxDecoration(
+                    color: primary, borderRadius: BorderRadius.circular(5)),
+                child: Text(
+                  "Predict",
+                  style: TextStyle(fontSize: 18, color: secondary),
+                ),
+              ))
+        ],
       ),
       bottomNavigationBar: miccontroller.ispressed
           ? Container(
@@ -63,7 +81,10 @@ class MyHomePage extends StatelessWidget {
               child: Center(
                 child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child: Text(miccontroller.text)),
+                    child: Text(
+                      miccontroller.text,
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    )),
               ),
             )
           : Container(
@@ -97,6 +118,7 @@ class ExitDialog extends StatelessWidget {
       insetAnimationDuration: Duration(milliseconds: 300),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Container(
+        margin: EdgeInsets.all(20),
         padding: EdgeInsets.all(10),
         height: 230,
         width: 230,

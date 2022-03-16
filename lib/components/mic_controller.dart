@@ -6,7 +6,8 @@ import 'package:speech_to_text/speech_to_text.dart';
 
 class Miccontroller extends ChangeNotifier {
   bool ispressed = false;
-  String text = "Mic is on... Say something";
+  String text = "Listening....";
+  late String listenedtext;
   static final _speech = SpeechToText();
 
   static Future<bool> togglerecording({
@@ -30,26 +31,24 @@ class Miccontroller extends ChangeNotifier {
   }
 
   void updateBooltofalse() {
-    if (ispressed) {
-      ispressed = false;
-      notifyListeners();
-    }
+    ispressed = false;
+    notifyListeners();
   }
 
   void updateBooltotrue(ScrollController scrollcontroller,
       {required chatcontroller}) async {
     bool isavailable;
     ispressed = true;
-    scrollcontroller.animateTo(scrollcontroller.position.maxScrollExtent,
-        duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+    listenedtext = text;
     isavailable = await togglerecording(updatetext: (String t) {
-      text = t;
+      listenedtext = t;
       notifyListeners();
       print(text);
     }, islistening: (bool ispressed, String status) {
       this.ispressed = ispressed;
       notifyListeners();
-      if (status == "done") chatcontroller.update(text, scrollcontroller);
+      if (status == "done" && listenedtext != text)
+        chatcontroller.update(listenedtext, scrollcontroller);
       print("Status: $status");
     });
     print("Availablity: $isavailable");
@@ -61,9 +60,10 @@ class Miccontroller extends ChangeNotifier {
     if (ispressed)
       updateBooltofalse();
     else {
+      scrollcontroller.animateTo(scrollcontroller.position.maxScrollExtent,
+          duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
       updateBooltotrue(scrollcontroller, chatcontroller: chatcontroller);
-      //chatcontroller.update(text, scrollcontroller);
-      text = "Mic is on... Say something.";
+      listenedtext = text;
     }
   }
 }

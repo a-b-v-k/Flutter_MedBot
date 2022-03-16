@@ -1,7 +1,7 @@
-class Message {
-  String text;
+class ChatMessage {
+  String? text;
   int senderId;
   int time;
 
-  Message({required this.senderId, required this.text, required this.time});
+  ChatMessage({required this.senderId, required this.text, required this.time});
 }

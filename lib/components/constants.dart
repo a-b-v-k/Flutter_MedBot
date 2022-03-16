@@ -42,11 +42,10 @@ const chaticon = Padding(
 
 const Icon micicon = Icon(Icons.mic_rounded, color: primary);
 
-const Text exitprompt = Text(
-  "DO YOU WANT TO EXIT THE APP?",
-  textAlign: TextAlign.center,
-  style: TextStyle(color: primary, fontSize: 20),
-);
+const Text exitprompt = Text("DO YOU WANT TO EXIT THE APP?",
+    textAlign: TextAlign.center,
+    style:
+        TextStyle(color: primary, fontSize: 20, fontWeight: FontWeight.bold));
 
 const Text exittext = Text(
   "EXIT",

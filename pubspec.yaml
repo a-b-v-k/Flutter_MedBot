@@ -35,12 +35,22 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  flutter_dialogflow: ^0.1.3
   hexcolor:
     git:
       url: https://github.com/ggichure/hexcolor.git
 
   speech_to_text: ^5.1.1
+  animated_splash_screen: 
+    git:
+      url: https://github.com/clean-code-dev/animated_splash_screen.git
+  page_transition: ^2.0.4
+  dialog_flowtter:
+    git:
+      url: https://github.com/Deimos-Applications/dialog_flowtter.git
+  keyboard_dismisser:
+    git:
+      url: https://github.com/drogel/keyboard_dismisser.git
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +71,7 @@ flutter:
   assets:
     - key.json
     - logo.jpg
+    - s.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
